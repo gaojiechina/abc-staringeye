@@ -1,0 +1,73 @@
+body{
+	background: 			#082b53 url(js/images/all_bj.jpg) center no-repeat;
+}
+
+#room_head_bar {
+	position:absolute; z-index:1;
+	top:70px; left:20px; right:20px;
+	height: 50px;
+	overflow:auto;
+	-moz-border-radius: 15px;  
+	-webkit-border-radius: 15px;
+	padding:0 20px;
+	border:#000 1px solid;
+	-webkit-box-shadow:0px 0px 15px black;
+	-moz-box-shadow:0px 0px 15px black;
+	-webkit-border-bottom-left-radius: 0px; 
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius-bottomleft: 0; 
+	-moz-border-radius-bottomright: 0;
+	background: 			#2567ab /*{b-bup-background-color}*/;
+	font-weight: bold;
+	color: 					#fff /*{b-bup-color}*/;
+	text-shadow: 0 /*{b-bup-shadow-x}*/ -1px /*{b-bup-shadow-y}*/ 1px /*{b-bup-shadow-radius}*/ #145072 /*{b-bup-shadow-color}*/;
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #5f9cc5 /*{b-bup-background-start}*/), to( #396b9e /*{b-bup-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(#5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient(#5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient(#5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient(#5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient(#5f9cc5 /*{b-bup-background-start}*/, #396b9e /*{b-bup-background-end}*/);
+}
+
+#wrapper_room {
+	position:absolute; z-index:1;
+	top:120px; left:20px; bottom:20px; right:20px;
+	overflow:auto;
+	-moz-border-radius: 5px;  
+	-webkit-border-radius: 5px;
+	padding:0 20px;
+	border:#000 1px solid;
+	-webkit-box-shadow:0px 0px 15px black;
+	-moz-box-shadow:0px 0px 15px black;
+	-webkit-border-top-left-radius: 0px; 
+	-webkit-border-top-right-radius: 0;
+}
+
+#scroller_room {
+	position:absolute; z-index:1;
+/*	-webkit-touch-callout:none;*/
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	padding:0;
+	right:7px;
+	left:0px;
+}
+
+#wrapper {
+	position:absolute; z-index:1;
+	top:90px; left:20px; bottom:40px; right:20px;
+	overflow:auto;
+	-moz-border-radius: 5px;  
+	-webkit-border-radius: 5px;
+	background:#fff;
+	padding:0 20px 20px;
+	border:#0f67a6 5px solid;
+	-webkit-box-shadow:0px 0px 15px black;
+	-moz-box-shadow:0px 0px 15px black;
+}
+
+#scroller {
+	position:absolute; z-index:1;
+/*	-webkit-touch-callout:none;*/
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	padding:0;
+}

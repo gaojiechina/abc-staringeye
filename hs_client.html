@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0;">
+		<title>HeroStartUp</title>
+		<link rel="stylesheet" href="js/vendor/jQuery_mobile_css/jquery.mobile-1.1.0-rc.1.css" />
+		<link rel="stylesheet" href="js/vendor/jQuery_mobile_css/jquery.mobile.structure-1.1.0-rc.1.css" />
+		<link rel="stylesheet" href="./wrapper&scroller.css" />
+		<script src="js/vendor/jQuery/jquery-1.6.4.min.js"></script>
+		<script src="js/vendor/jQuery_mobile/jquery.mobile-1.1.0-rc.1.js"></script>
+		<script src="js/util/ui/iscroll.js"></script>
+		<script src="js/util/control/ai.js"></script>
+		<script src="js/app/connect/connection.js"></script>
+		<script src="js/app/game/test.js" charset="utf-8"></script>
+		<script src="js/app/game/localgame.js"></script>
+		<script src="js/util/ui/ui.js"></script>
+	</head>
+	<body>
+		<!-- Start of first page: #one -->
+		<div data-role="page" id="one" style="overflow: hidden;">
+			<!-- 
+			<div style="position:fixed; color:white; text-shadow: 1px 1px 1px #00709C; left:10px; top:10px; float:left;">
+				账户状态：游客
+			</div> 
+			-->
+			<div style="width:770px; height:410px; padding:50px 20px 20px 10px; position:absolute; top:50%; margin-top:-240px; left:50%; margin-left:-400px; overflow:hidden;">
+				<table id="backtable" >
+					<tr>
+						<td width="600">
+						<div style="width:400px; text-align:right;">
+							<div style="height:320px;">
+								<img src="js/images/big_icon.png" />
+							</div>
+							<div style="margin-left:70px;">
+								<div style="float:left; margin-right:50px;">
+									<a href="#" data-role="button" data-theme="b" onclick="show_editioninfo();">版本信息</a>
+								</div>
+								<div style="float:left; ">
+									<a href="" data-role="button" data-theme="b" id="sound_button" onclick="toggleSound();">声音(开)</a>
+								</div>
+							</div>
+						</div></td>
+						<td>
+						<div style="margin-top: 20px; background: #2d4c68; color: #FFF; opacity: 0.9; text-shadow: 1px 1px 1px #000; margin-right: 50px; height: 280px; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #063c69; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+							<div style="background: #084063; -moz-border-radius: 10px; height: 246px; -webkit-border-radius: 10px; margin: 12px 2px 2px 2px; padding: 10px; background: -moz-linear-gradient(top, #073356, rgba(9, 64, 102, 1) ); background: -webkit-gradient(linear, 0 0, 0 bottom, from(#073356), to(rgba(9, 64, 102, 1) ) ); -moz-box-shadow: 0px 0px 2px #104869; -webkit-box-shadow: 0px 0px 2px #104869;">
+								<div style="height: 68px; border-bottom: 1px solid #aaa; margin-bottom: 1px;">
+									<div style="float: left; -moz-border-radius: 5px; -webkit-border-radius: 5px; border: 1px solid #285e8b; width: 58px; height: 58px; -webkit-box-shadow: 0px 0px 5px #665; -moz-box-shadow: 0px 0px 5px #665;">
+										<div id="user_icon_one" style="width: 50px; height: 50px; margin: 4px; background: #FFF;">
+											<img id="usericon1" src="js/images/usericon.png" width="50" />
+										</div>
+									</div>
+									<div style="float: left; width: 140px; height: 48px; line-height: 24px; padding: 5px;">
+										<div id="username_one">昵称：未登录</div>
+										<div id="score_one">1000</div>
+									</div>
+								</div>
+								<table width="224">
+									<tr>
+										<td><a href="#" data-role="button" onclick="javascript:initLocalGame();" data-theme="e"><b>单机游戏模式</b> </a></td>
+									</tr>
+									<tr>
+										<td><a href="#" data-role="button" onclick="javascript:prepareLogin();" data-theme="e"><b>联网对战模式</b> </a></td>
+									</tr>
+									<tr>
+										<td><a href="" onclick="gotopage_help();setTimeout(help_loaded, 500);return false;" data-role="button" data-theme="b"><b>游戏规则</b> </a></td>
+									</tr>
+								</table>
+							</div>
+						</div></td>
+					</tr>
+				</table>
+				<div id="loginwindow" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+					<!-- <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 1; background: #000; opacity: 0.4;"></div> -->
+					<div style="position: absolute; top: 80px; left: 200px; right: 200px; z-index: 2; height: 280px; color: #FFF; background: #adcce8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #063c69; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+						<div id="userlogin" style="text-align: center; padding: 13px; font-weight: bold; background: #FFF; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; background-image: -webkit-linear-gradient(#5f9cc5, #396b9e); background-image: -moz-linear-gradient(#5f9cc5, #396b9e); background-image: linear-gradient(#5f9cc5, #396b9e); background-image: -webkit-gradient(linear, left top, left bottom, from(#5f9cc5), to(#396b9e) ); border-bottom: 1px solid #063c69;">
+							用户登录
+						</div>
+						<div style="position: absolute; right: 0; top: 0; width: 47px; height: 20px;">
+							<a href="#" onclick="return_to_one_from_login();"
+							class="exit_botton" style="margin: .2em 2px;" data-role="button"
+							data-theme="b">X</a>
+						</div>
+						<div
+						style="padding: 15px; color: #082B53; text-shadow: 1px 1px 1px #fff;">
+							<table width="360">
+								<tr>
+									<td width="80">用户名:</td>
+									<td>
+									<input type="text" name="name" id="username" value=""
+									data-theme="d" />
+									</td>
+								</tr>
+								<tr>
+									<td>密码:</td>
+									<td>
+									<input type="password" name="pass" id="password"
+									value="" data-theme="d" />
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+									<div style="width: 130px;">
+										<input type="checkbox" name="checkbox-0" id="checkbox-0" class="custom" data-mini="true" data-theme="d" />
+										<label for="checkbox-0">记住我</label>
+									</div></td>
+								</tr>
+							</table>
+							<center>
+								<table width="300">
+									<tr>
+										<td><a href="#" data-role="button" data-rel="dialog" data-transition="pop" data-theme="b" onclick="show_register();">注册</a></td>
+										<td width="50%"><a href="" data-role="button" onclick="javascript:login(); return false;" data-theme="e">登录</a></td>
+									</tr>
+								</table>
+							</center>
+						</div>
+					</div>
+				</div>
+				<div id="Registrationwindow" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+					<!-- <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 1; background: #000; opacity: 0.4;"></div> -->
+					<div style="position: absolute; top: 40px; left: 150px; right: 200px; z-index: 2; width:500px; height: 360px; color: #FFF; background: #adcce8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #063c69; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+						<div style="text-align: center; padding: 13px; font-weight: bold; background: #FFF; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; background-image: -webkit-linear-gradient(#5f9cc5, #396b9e); background-image: -moz-linear-gradient(#5f9cc5, #396b9e); background-image: linear-gradient(#5f9cc5, #396b9e); background-image: -webkit-gradient(linear, left top, left bottom, from(#5f9cc5), to(#396b9e) ); border-bottom: 1px solid #063c69;">
+							注册新用户
+						</div>
+						<div style="position: absolute; right: 0; top: 0; width: 47px; height: 20px;">
+							<a href="#"
+							onclick="return_to_login_from_register();"
+							class="exit_botton" style="margin: .2em 2px;" data-role="button"
+							data-theme="b">X</a>
+						</div>
+						<!-- <p style="margin-top: px; padding-top: 3px; padding-left: 85px">2~20个字符，包括字母、数字、下划线</p> -->
+
+						<div
+						style="padding: 10px; color: #082B53; text-shadow: 1px 1px 1px #fff;">
+							<table width="360px">
+								<tr>
+									<td width="90px">用户名:</td>
+									<td>
+									<input type="text" name="Newname" id="Newname" value=""
+									data-theme="d" />
+									</td>
+								</tr>
+								
+								<tr>
+									<td width="90px">昵称:</td>
+									<td>
+									<input type="text" name="Nickname" id="Nickname"
+									value="" data-theme="d" />
+									</td>
+								</tr>
+								<div style="position: absolute; top: 60px; right: 40px;">
+									<span style="display: inline-block; height: 64px; width: 64px;"><img id="usericon"
+										src="js/images/usericon.png" width="80" /> </span>
+								</div>
+							</table>
+							<table width="360px">
+								<tr>
+									<td>头像：</td>
+									<td>
+									<div style="text-align: center;">
+										<span
+										style="display: inline-block; padding: 1px; border: 1px #063c69 solid; height: 50px;"><img id="head01"
+											src="js/images/head/head01.png" width="50"
+											onclick="Headclick(this);" /> </span><span
+										style="display: inline-block; padding: 1px; border: 1px #063c69 solid; height: 50px;"><img id="head02"
+											src="js/images/head/head02.png" width="50" onclick="Headclick(this);"/> </span><span
+										style="display: inline-block; padding: 1px; border: 1px #063c69 solid; height: 50px;"><img id="head03"
+											src="js/images/head/head03.png" width="50" onclick="Headclick(this);"/> </span>
+										<span style="display: inline-block; padding: 1px; border: 1px #063c69 solid; height: 50px;"
+										onclick="show_chooseavatar();"><img src="js/images/head/head_more.png" width="50"/> </span>
+									</div></td>
+								</tr>
+							</table>
+							<table width="450px">
+								<tr>
+									<td width="90px">密码:</td>
+									<td>
+									<input type="password" name="Newpass" id="Newpassword"
+									value="" data-theme="d" />
+									</td>
+								</tr>
+								<tr>
+									<td>确认密码:</td>
+									<td>
+									<input type="password" name="Confirmpass"
+									id="Confirmpassword" value="" data-theme="d" />
+									</td>
+								</tr>
+							</table>
+							<center>
+								<table width="350">
+									<tr>
+										<td width="50%"><a href="" data-role="button"
+										onclick="javascript:UserReg();" data-theme="e">注册</a></td>
+										<td><a href="#" data-role="button" data-theme="b" onclick="return_to_login_from_register();">返回</a></td>
+									</tr>
+								</table>
+							</center>
+						</div>
+					</div>
+				</div>
+				<div id="PictureChoice" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 45%; margin-top: -240px; display: none;">
+					<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 1; background: #000; opacity: 0.4;"></div>
+					<div style="position: absolute; top: 30px; left: 50px; right: 200px; z-index: 2; width:700px; height: 450px; color: #FFF; background: #adcce8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #063c69; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+						<div style="text-align: center; padding: 13px; width:674px; font-weight: bold; background: #FFF; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; background-image: -webkit-linear-gradient(#5f9cc5, #396b9e); background-image: -moz-linear-gradient(#5f9cc5, #396b9e); background-image: linear-gradient(#5f9cc5, #396b9e); background-image: -webkit-gradient(linear, left top, left bottom, from(#5f9cc5), to(#396b9e) ); border-bottom: 1px solid #063c69;">
+							更多头像选择
+						</div>
+						<div style="position: absolute; right: 0; top: 0; width: 47px; height: 25px;">
+							<a href="#" onclick="return_to_register_from_chooseavatar();"
+							class="exit_botton" style="margin: .2em 2px;" data-role="button" data-theme="b">X</a>
+						</div>
+						<div style="padding: 10px; color: #082B53; text-shadow: 1px 1px 1px #fff;">
+							<table width="100%">
+								<tr style="text-align: center;">
+									<td><span style="display: inline-block; height: 100px; width: 100px;"><img id="head05"
+										src="js/images/head/head05.png" width="80" onclick="Headclick(this);"/> </span><span style="display: inline-block; height: 100px; width: 100px;"><img id="head06"
+										src="js/images/head/head06.png" width="80" onclick="Headclick(this);"/> </span><span style="display: inline-block; height: 100px; width: 100px;"><img id="head07"
+										src="js/images/head/head07.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head08"
+										src="js/images/head/head08.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head09"
+										src="js/images/head/head09.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head10"
+										src="js/images/head/head10.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head11"
+										src="js/images/head/head11.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head12"
+										src="js/images/head/head12.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head13"
+										src="js/images/head/head13.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head14"
+										src="js/images/head/head14.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head15"
+										src="js/images/head/head15.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head16"
+										src="js/images/head/head16.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head17"
+										src="js/images/head/head17.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head17"
+										src="js/images/head/head18.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head19"
+										src="js/images/head/head19.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head20"
+										src="js/images/head/head20.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head21"
+										src="js/images/head/head21.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head22"
+										src="js/images/head/head22.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head23"
+										src="js/images/head/head23.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head24"
+										src="js/images/head/head24.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head25"
+										src="js/images/head/head25.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head26"
+										src="js/images/head/head26.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head27"
+										src="js/images/head/head27.png" width="80" onclick="Headclick(this);"/> </span><span
+									style="display: inline-block; height: 100px; width: 100px;"><img id="head28"
+										src="js/images/head/head28.png" width="80" onclick="Headclick(this);"/> </span></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div id="aboutwindow" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+					<!-- <div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 1; background: #000; opacity: 0.4;"></div> -->
+					<div style="position: absolute; top: 140px; left: 200px; right: 200px; z-index: 2; height: 180px; color: #FFF; background: #bddcf8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #063c69; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+						<div style="text-align: center; padding: 13px; font-weight: bold; background: #FFF; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; background-image: -webkit-linear-gradient(#5f9cc5, #396b9e); background-image: -moz-linear-gradient(#5f9cc5, #396b9e); background-image: linear-gradient(#5f9cc5, #396b9e); background-image: -webkit-gradient(linear, left top, left bottom, from(#5f9cc5), to(#396b9e) ); border-bottom: 1px solid #063c69;">
+							版本信息
+						</div>
+						<div style="position: absolute; right: 0; top: 0; width: 47px; height: 20px;">
+							<a href="#" onclick="return_to_one_from_editioninfo();"
+							class="exit_botton" style="margin: .2em 2px;" data-role="button"
+							data-theme="b">X</a>
+						</div>
+						<div style="padding: 15px; color: #082B53; text-shadow: 1px 1px 1px #fff;">
+							<center>
+								<table width="260">
+									<tr>
+										<td>版本信息：v0.2 build20120407</td>
+									</tr>
+									<tr>
+										<td>版权所有 Copyright 2012.</td>
+									</tr>
+								</table>
+								<table width="150">
+									<tr>
+										<td><a href="#" data-role="button" data-theme="b"
+										onclick="return_to_one_from_editioninfo();">关闭</a></td>
+									</tr>
+								</table>
+							</center>
+						</div>
+					</div>
+				</div>
+				<div id="loadinglogin" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+					<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 10001; background: #000; opacity: 0.4;"></div>
+					<div style="position: absolute; top: 200px; left: 300px; right: 300px; z-index: 10002; height: 50px; color: #FFF; background: #000; opacity: 0.8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #000; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+						<div style="padding: 5px; color: #FFF; text-shadow: 1px 1px 1px #333; line-height: 40px; text-align: center;">
+							正在登录...
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="loadingreg" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+			<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 10001; background: #000; opacity: 0.4;"></div>
+			<div style="position: absolute; top: 200px; left: 300px; right: 300px; z-index: 10002; height: 50px; color: #FFF; background: #000; opacity: 0.8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #000; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+				<div style="padding: 5px; color: #FFF; text-shadow: 1px 1px 1px #333; line-height: 40px; text-align: center;">
+					提交数据请稍后...
+				</div>
+			</div>
+		</div>
+		<!-- /page one -->
+		<!-- Start of second page: #two -->
+		<div data-role="page" id="two">
+			<div id="wrapper_room" style="line-height: 150%;">
+				<div id="scroller_room">
+					<ul data-role="listview" data-theme="b" style="margin-top: 50px;" id="roomList">
+						<li>
+							<span class="ui-li-id"></span><a href="#" onclick="" data-transition="fade">
+							<span class="ui-li-creator"></span><span class="ui-li-count"></span> </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- /content -->
+			<div style="position: absolute; top: 0; right: 0; left: 0; bottom: 0; z-index: 0;">
+				<span
+				style="display: block; text-align: center; position: absolute; top: 0; right: 0; left: 0; height: 60px; line-height: 60px; z-index: 0; color: #ffcc00; text-shadow: 0px 0px 10px #000; font-size: 24px; font-weight: bold; background: url(js/images/pic_hall_bg.png) center top no-repeat;">游戏大厅</span>
+				<a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" onclick="javascript: logout();">返回</a>
+				<div style="position: absolute; right: 10px; top: 12px; height: 68px;">
+					<div style="float: right; width: 200px; height: 32px; text-align: right; color: white;">
+						<span id="username_two" style="display: inline-block; height: 32px; background: url(js/images/user_icon.png) center left no-repeat; line-height: 32px; padding-left: 35px;">用户名</span>
+						<span id="score_two" style="display: inline-block; height: 32px; background: url(js/images/money_icon.png) center left no-repeat; line-height: 32px; padding-left: 35px;">$1000</span>
+					</div>
+				</div>
+			</div>
+			<div style="position: absolute; top: 121px; left: 20px; right: 20px; height: 50px; background: #000; opacity: 0.4; z-index: 100;"></div>
+			<div style="position: absolute; top: 121px; left: 20px; right: 20px; height: 50px; text-align: center; line-height: 50px; z-index: 1002; color: #FFF;">
+				<span style="display: inline-block; position: absolute; height: 50px; width: 120px; left: 0; border-right: 1px solid #777;">ID</span>
+				<span style="display: inline-block; position: absolute; height: 50px; left: 120px; right: 220px; border-right: 1px solid #777;">房间名称</span>
+				<span style="display: inline-block; position: absolute; height: 50px; width: 120px; right: 100px; border-left: 1px solid #777;">创建者</span>
+				<span style="display: inline-block; position: absolute; height: 50px; width: 100px; right: 0; border-left: 1px solid #777;">人数</span>
+			</div>
+			<div id="room_head_bar">
+				<a href="#" onclick="show_newroom();"
+				data-role="button" data-icon="add" data-iconpos="left"
+				data-inline="true" data-theme="e"
+				style="height: 32px; line-height: 14px;">新建房间</a>
+				<a href=""
+				onclick="javascript:getRoomInfo();" data-role="button"
+				data-icon="refresh" data-iconpos="left" data-inline="true"
+				data-theme="c" style="height: 32px; line-height: 14px;">刷新</a>
+				<a href="#" data-role="button" data-inline="true"
+				onclick="javascript:quickGame();" data-theme="e"
+				style="height: 32px; line-height: 14px; float: right;">快速开始</a>
+			</div>
+			<div id="newroomwindow" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+				<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 10001; background: #000; opacity: 0.4;"></div>
+				<div style="position: absolute; top: 150px; left: 200px; right: 200px; z-index: 10002; height: 180px; color: #FFF; background: #bddcf8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #063c69; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+					<div style="text-align: center; padding: 13px; font-weight: bold; background: #FFF; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; background-image: -webkit-linear-gradient(#5f9cc5, #396b9e); background-image: -moz-linear-gradient(#5f9cc5, #396b9e); background-image: linear-gradient(#5f9cc5, #396b9e); background-image: -webkit-gradient(linear, left top, left bottom, from(#5f9cc5), to(#396b9e) ); border-bottom: 1px solid #063c69;">
+						新建房间
+					</div>
+					<div style="position: absolute; right: 0; top: 0; width: 47px; height: 20px;">
+						<a href="#" onclick="return_to_two_from_newroom()" class="exit_botton" style="margin: .2em 2px;" data-role="button" data-theme="b">X</a>
+					</div>
+					<div style="padding: 15px; color: #082B53; text-shadow: 1px 1px 1px #fff;">
+						<table width="360">
+							<tr>
+								<td width="80">房间名称:</td>
+								<td>
+								<input type="text" name="roomname" id="roomname" value="" data-theme="d" />
+								</td>
+							</tr>
+						</table>
+						<center>
+							<table width="300">
+								<tr>
+									<td width="50%"><a href="" data-role="button"
+									onclick="javascript:creatRoom();return false;"
+
+									data-theme="e">创建</a></td>
+									<td><a href="#" data-role="button" data-transition="pop" data-theme="b" onclick="return_to_two_from_newroom()">取消</a></td>
+								</tr>
+							</table>
+						</center>
+					</div>
+				</div>
+			</div>
+			<div id="loadingroominfo"
+			style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+				<div
+				style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 10001; background: #000; opacity: 0.4;"></div>
+				<div
+				style="position: absolute; top: 200px; left: 300px; right: 300px; z-index: 10002; height: 50px; color: #FFF; background: #000; opacity: 0.8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #000; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+					<div
+					style="padding: 5px; color: #FFF; text-shadow: 1px 1px 1px #333; line-height: 40px; text-align: center;">
+						正在载入，请稍后...
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="warningwindow" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+
+					<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 1; background: #000; opacity: 0.4;"></div>
+
+					<div style="position: absolute; top: 80px; left: 150px; right: 150px; z-index: 2; height: 200px; color: #FFF; background: #adcce8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #063c69; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+
+						<div id="warning" style="text-align: center; padding: 13px; font-weight: bold; background: #FFF; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; background-image: -webkit-linear-gradient(#5f9cc5, #396b9e); background-image: -moz-linear-gradient(#5f9cc5, #396b9e); background-image: linear-gradient(#5f9cc5, #396b9e); background-image: -webkit-gradient(linear, left top, left bottom, from(#5f9cc5), to(#396b9e) ); border-bottom: 1px solid #063c69;">
+
+							注意
+
+						</div>
+
+						<div style="position: absolute; right: 0; top: 0; width: 47px; height: 20px;">
+
+							<a href="" onclick="$('#warningwindow').fadeOut(200);$('#backtable').show(0);return false;" 
+							class="exit_botton ui-btn ui-btn-corner-all ui-shadow ui-btn-up-b" style="margin: .2em 2px;" data-role="button" data-theme="b" data-corners="true" data-shadow="true" data-iconshadow="true" 
+							data-inline="false" data-wrapperels="span">
+							<span class="ui-btn-inner ui-btn-corner-all">
+							<span class="ui-btn-text">X</span></span></a>
+
+						</div>
+						<div id="warning_context" style="position:absolute; top: 80px; left:50px; width: 300px; height:30px;">
+
+							<span id="warning_text" style="display:inline-block; height:25px; width:500px; color:#ffffff">游戏中退出将被扣除积分，确认退出吗？</span>
+
+						</div>
+						
+						<table width="150px">
+							<tr>
+								<td width="50%"><a href="" style="position: absolute; bottom: 10px; left: 80px; width: 120px;" data-role="button" data-rel="dialog" data-transition="pop" data-theme="b" 
+									onclick="javascript:$('#warningwindow').fadeOut(200);return false;" data-corners="true" 
+									data-shadow="true" data-iconshadow="true" data-inline="false" data-wrapperels="span" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-b">
+									<span class="ui-btn-inner ui-btn-corner-all">
+									<span class="ui-btn-text">取消</span></span></a>
+								</td>
+							</tr>
+						
+							<tr>
+								<td><a href="" style="position: absolute; bottom: 10px; right: 80px; width: 120px" data-role="button" data-rel="dialog" data-transition="pop" data-theme="e" 
+									onclick="javascript:leaveTheGame();return false;" data-corners="true" 
+									data-shadow="true" data-iconshadow="true" data-inline="false" data-wrapperels="span" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-b">
+									<span class="ui-btn-inner ui-btn-corner-all">
+									<span class="ui-btn-text">确定</span></span></a>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+				
+		<!-- /page two -->
+		<!-- Start of second page: #three -->
+		<div data-role="page" id="three">
+			<!-- <div id="containerButton" style="position: fixed; bottom: 300px; left: 60px; right: 0px; text-align: center;">
+				<span class="button" style="display: inline-block;"> <a href="" data-role="button" data-inline="true" data-theme="b" onclick="javascript:container_add();return false;">增加内容</a> </span>
+				<span class="button" style="display: inline-block;"> <a href="" data-role="button" data-inline="true" data-theme="b" onclick="javascript:container_fadein();return false;">显示</a> </span>
+				<span class="button" style="display: inline-block;"> <a href="" data-role="button" data-inline="true" data-theme="b" onclick="javascript:container_intime();return false;">定时显示</a> </span>
+			</div>-->
+			
+			<div style="width: 380px; margin: 0 auto; line-height: 30px; background-image: -webkit-linear-gradient(#5f9cc5, #396b9e); background-image: -moz-linear-gradient(#5f9cc5, #396b9e); text-align: center; color: #FFF; text-shadow: 1px 1px 1px #FFF; border: 1px solid #063c69; border-top: none; -webkit-border-top-left-radius: 0px; -webkit-border-top-right-radius: 0; -webkit-border-bottom-left-radius: 18px; -webkit-border-bottom-right-radius: 18px; -moz-border-radius-bottomleft: 18px; -moz-border-radius-bottomright: 18px; -moz-box-shadow: 0px 0px 10px #000; -webkit-box-shadow: 0px 0px 10px #000;">
+				<table width="100%">
+					<tr>
+						<td width="50">
+							<a href="#" style="width: 80px; display: inline-block; padding-top:8px;" onclick="javascript:leaveWarning();"><img src="js/images/tool_exit_n.png" /></a></span>
+						</td>
+						<td width="100%" align="center">
+							<input name="showtime" style="color:#ffffff; width:100px; font-size:20px; height:30px;" id="showtime" type="text" value="剩余20秒">
+						</td>
+						<td width="50">
+							<span id="roomNameDis" style="width: 80px; display: inline-block;"></span>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!-- Left Player -->
+			<div id="leftavatar" style="display:none; position: fixed; top: 40px; left: 12px; width: 57px; height: 60px; background: url(js/images/peasant_lord_r.png) center no-repeat; border: 4px solid #edb318;"></div>
+			<div id="playInfo_Left" style="position:fixed; top: 160px; left:10px; width: 200px; height:30px;">
+				<span id="nike_Left" style="display:none; height:25px; width:200px; color:#ffffff">昵称:</span>
+				<span id="money_Left" style="display:none; height:25px; width:200px; color:#ffffff">资产:</span>
+			</div>
+			<div id="cardnum_Left" style="display:none; position: fixed; top: 120px; left: 12px; width: 80px; height: 60px;">
+				<span style="display: inline-block; height: 20px; width: 18px;"><img src="js/images/card_back.png" width="21" /></span>
+				<span style="display: inline-block; height: 20px; width: 15px;"><img src="js/images/score_add_7.png" /></span>
+			</div>
+			<div id="cards_left" style="position: fixed; top: 80px; left: 120px; width: 260px;">
+				<span style="display: inline-block; height: 58px; width: 18px;"><img src="js/images/card_hearts_a.png" width="40" /></span>
+				<span style="display: inline-block; height: 58px; width: 18px;"><img src="js/images/card_hearts_a.png" width="40" /></span>
+			</div>
+			<!-- Right Player -->
+			<div id="rightavatar" style="display:none; position: fixed; top: 40px; right: 12px; width: 57px; height: 60px; background: url(js/images/peasant_lord_r.png) center no-repeat; border: 4px solid #edb318;"></div>
+			<div id="playInfo_Rigth" style="position:fixed; top: 160px; right:10px; width: 200px; height:30px; ">
+				<span id="nike_Right" style="display:none; height:25px; width:200px; color:#ffffff; text-align: right">昵称:</span>
+				<span id="money_Right" style="display:none; height:25px; width:200px; color:#ffffff; text-align: right">资产:</span>
+			</div>
+			<div id="cardnum_Right" style="display:none; position: fixed; top: 120px; right: 21px; width: 80px; height: 60px; text-align: right;">
+				<span style="display: inline-block; height: 20px; width: 18px;"><img src="js/images/card_back.png" width="21" /> </span>
+				<span style="display: inline-block; height: 20px; width: 15px;"><img src="js/images/score_add_7.png" /> </span>
+			</div>
+			<div id="cards_right"  style="position: fixed; top: 80px; right: 135px; width: 260px; text-align: right;">
+				<span style="display: inline-block; height: 58px; width: 18px;"><img src="js/images/card_hearts_a.png" width="40" /></span>
+				<span style="display: inline-block; height: 58px; width: 18px;"><img src="js/images/card_hearts_a.png" width="40" /></span>
+				<span style="display: inline-block; height: 58px; width: 18px;"><img src="js/images/card_hearts_a.png" width="40" /></span>
+				<span style="display: inline-block; height: 58px; width: 18px;"><img src="js/images/card_hearts_a.png" width="40" /></span>
+			</div>
+			<!-- Me -->
+			<div id="myavatar" style="position: fixed; bottom: 75px; left: 12px; width: 57px; height: 60px; background: url(js/images/peasant_lord_r.png) center no-repeat; border: 4px solid #edb318;"></div>
+			<div id="playInfo_Me" style="position:fixed; bottom: 100px; left:100px; width: 60px; height:30px; color:#ffffff;">
+				<span id="nike_Me" style="display:inline-block; height:25px; width:200px; color:#ffffff">昵称：</span>
+				<span id="money_Me" style="display:inline-block; height:25px; width:200px; color:#ffffff">资产:</span>
+			</div>
+			<div id="cardnum_Me" style="position: fixed; bottom: 35px; left: 12px; width: 80px; height: 20px;">
+				<span style="display: inline-block; height: 20px; width: 16px;"><img
+					src="js/images/card_back.png" width="21" /> </span>
+				<span id="mycardnum" style="display: inline-block;"> <span style="display: inline-block; height: 20px; width: 19px;"><img
+						src="js/images/score_add_0.png" /> </span> <span style="display: inline-block; height: 20px; width: 18px;"><img
+						src="js/images/score_add_6.png" /> </span> </span>
+			</div>
+			<div id="mycard_small" style="display: inline-block; position: fixed; bottom: 220px; left: 150px; right: 150px; text-align: center; opacity: 0;">
+				<span style="display: inline-block; height: 58px; width: 18px;"><img
+					src="js/images/card_hearts_a.png" width="40" /> </span>
+				<span style="display: inline-block; height: 58px; width: 18px;"><img
+					src="js/images/card_hearts_a.png" width="40" /> </span>
+				<span style="display: inline-block; height: 58px; width: 18px;"><img
+					src="js/images/card_hearts_a.png" width="40" /> </span>
+			</div>
+			<div id="mycards" style=" position: fixed; bottom: 45px; left: 20px; right: 0px; text-align: center;">
+				<!--
+				<span style="position:absolute; left:240px; bottom:0px; height:117px; width:86px; background:url(js/images/card_diamonds_6.png) center no-repeat;" onclick="$(this).animate({bottom: $(this).css('bottom')=='0px'?'30':'0',},80);"></span>
+				<span style="position:absolute; left:300px; bottom:0px; height:117px; width:86px; background:url(js/images/card_diamonds_6.png) center no-repeat;" onclick="$(this).animate({bottom: $(this).css('bottom')=='0px'?'30':'0',},80);"></span>
+				<span style="position:absolute; left:360px; bottom:0px; height:117px; width:86px; background:url(js/images/card_diamonds_6.png) center no-repeat;" onclick="$(this).animate({bottom: $(this).css('bottom')=='0px'?'30':'0',},80);"></span>
+				<span style="position:absolute; left:420px; bottom:0px; height:117px; width:86px; background:url(js/images/card_diamonds_6.png) center no-repeat;" onclick="$(this).animate({bottom: $(this).css('bottom')=='0px'?'30':'0',},80);"></span>
+				<span style="position:absolute; left:480px; bottom:0px; height:117px; width:86px; background:url(js/images/card_diamonds_6.png) center no-repeat;" onclick="$(this).animate({bottom: $(this).css('bottom')=='0px'?'30':'0',},80);"></span>
+				-->
+			</div>
+			<div id="buttonmenu" style="position: absolute; bottom: 185px; left: 60px; right: 0px; text-align: center;">
+				<span class="button" style="display: inline-block;"> <a href="" data-role="button" data-inline="true" data-theme="b" onclick="javascript:buchu();return false;">不出</a> </span>
+				<span class="button" style="display: inline-block;"> <a href="" data-role="button" data-inline="true" data-theme="b" onclick="javascript:chongxuan();return false;">重选</a> </span>
+				<span class="button" style="display: inline-block;"> <a href="" data-role="button" data-inline="true" data-theme="b" onclick="javascript:tishi();return false;">提示</a> </span>
+				<span class="button" style="display: inline-block;"> <a href="" data-role="button" data-inline="true" data-theme="b" onclick="javascript:chupai();return false;">出牌</a> </span>
+			</div>
+			<div id="readybuttonmenu" style="position: fixed; bottom: 185px; left: 60px; right: 60px; text-align: center; display:none;">
+				<span class="button" style="display: inline-block;"><a href=""
+					data-role="button" data-inline="true" data-theme="e"
+					onclick="javascript:sendReady();return false;">&nbsp;&nbsp;准&nbsp;备&nbsp;&nbsp;</a></span>
+			</div>
+			<div id="startbuttonmenu" style="position: fixed; bottom: 185px; left: 60px; right: 60px; text-align: center; display:none;">
+				<span class="button" style="display: inline-block;"><a href=""
+					data-role="button" data-inline="true" data-theme="e"
+					onclick="javascript:startLocalGame();return false;">&nbsp;&nbsp;开&nbsp;始&nbsp;&nbsp;</a></span>
+			</div>
+			<div id="imready" style="position: fixed; bottom: 135px; left: 60px; right: 60px; text-align: center; display:none;">
+				<img src="js/images/prepare_user.png" width="100"/>
+			</div>
+			<div id="boom" style="position: fixed; left: 0; right: 0; top: 185px; height: 110px; text-align: center; display: none;"></div>
+			<div id="sound" style="display: none;"></div>
+
+		<div id="loadingleaveroom" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+			<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 10001; background: #000; opacity: 0.4;"></div>
+			<div style="position: absolute; top: 200px; left: 300px; right: 300px; z-index: 10002; height: 50px; color: #FFF; background: #000; opacity: 0.8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #000; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+				<div style="padding: 5px; color: #FFF; text-shadow: 1px 1px 1px #333; line-height: 40px; text-align: center;">
+					正在退出，请稍后...
+				</div>
+			</div>
+		</div>
+		
+		<div id="textContainer" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+			<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 10001; background: #000; opacity: 0.4;"></div>
+			<div style="position: absolute; top: 200px; left: 300px; right: 300px; z-index: 10002; height: 50px; color: #FFF; background: #000; opacity: 0.8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #000; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+				<div id="container" style="padding: 5px; color: #FFF; text-shadow: 1px 1px 1px #333; line-height: 40px; text-align: center;">
+					
+				</div>
+			</div>
+		</div>
+		
+		<div id="start_game_message" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+			<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 10001; background: #000; opacity: 0.4;"></div>
+			<div style="position: absolute; top: 200px; left: 300px; right: 300px; z-index: 10002; height: 50px; color: #FFF; background: #000; opacity: 0.8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #000; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+				<div style="padding: 5px; color: #FFF; text-shadow: 1px 1px 1px #333; line-height: 40px; text-align: center;">
+					游戏开始
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="game_over" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; display: none;">
+			<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 1; background: #000; opacity: 0.4;"></div>
+			<div style="position: absolute; top: 80px; left: 150px; right: 150px; z-index: 2; height: 350px; color: #FFF; background: #adcce8; text-shadow: 1px 1px 1px #000; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 1px solid #063c69; -moz-box-shadow: 0px 0px 15px #000; -webkit-box-shadow: 0px 0px 15px #000;">
+				<div style="text-align: center; padding: 13px; font-weight: bold; background: #FFF; -webkit-border-top-left-radius: 10px; -webkit-border-top-right-radius: 10px; -moz-border-radius-topleft: 10px; -moz-border-radius-topright: 10px; background-image: -webkit-linear-gradient(#5f9cc5, #396b9e); background-image: -moz-linear-gradient(#5f9cc5, #396b9e); background-image: linear-gradient(#5f9cc5, #396b9e); background-image: -webkit-gradient(linear, left top, left bottom, from(#5f9cc5), to(#396b9e) ); border-bottom: 1px solid #063c69;">
+					积分榜
+				</div>
+				<div style="position: absolute; right: 0; top: 0; width: 47px; height: 20px;">
+					<a href="" onclick="click_game_over();"class="exit_botton" style="margin: .2em 2px;" data-role="button"data-theme="b">X</a>
+				</div>
+				<div style="position: absolute; top: 50px; left: 10px; right: 10px; height: 50px; background: #000; opacity: 0.4; z-index: 100;"></div>
+				<div id="game_over_content" style="position: absolute; top: 50px; left: 10px; right: 10px; height: 50px; text-align: center; line-height: 50px; z-index: 1002; color: #FFF;"></div>
+				<span style="display: block; position: absolute; bottom:0px; height: 70px; width: 100px; right: 30px; ">
+					<table width="100px">
+						<tr>
+							<td>
+								<a href="" data-role="button" style="width: 100px; height: 40px; text-align: center;" onclick="javascript:click_game_over();" data-theme="e">确定</a>
+							</td>
+						</tr>
+					</table>
+				</span>
+			</div>
+		</div>
+		
+		<div id="allCards_left_count" style="position: absolute; right: 5px; bottom: 5px; height:24px; width: 120px; text-align: right; color:white;">
+			
+		</div>
+	</div> 
+	<!-- /page three -->
+		
+		<!-- Start of second page: #help -->
+		<div data-role="page" id="help">
+			<div id="wrapper" style="line-height: 150%;">
+				<div id="scroller">
+<p><b>牌数</b>：一副牌（54张）</p>
+<p><b>游戏人数</b>：3人</p>
+<p><b>东家</b>：首次为房间创建人做东家，从第二局开始由上一局赢家做东家。若东家退出，则由本房间玩过一局以上且顺时针方向的下一人为东家。</p>
+<p><b>发牌</b>：东家先摸6张牌，其他两人每人摸5张，剩下为底牌，由东家先出牌。</p>
+<p><b>摸牌</b>：当一玩家出牌后无人接牌时（其他人干瞪眼），若还有底牌，则该玩家摸一张牌后再出牌。</p>
+
+<hr/>
+<p><b>牌型</b>：单张，对子，顺子，连对，炸弹，王炸</p>
+<p><b>单张</b>：2 > A > K > Q > J > 10 > 9 > 8 > 7 > 6 > 5 > 4 > 3<br/>
+其中2可以压除2以外的所有单张<br/>
+只能用大一级的单张去压已出牌，如，有一玩家出了3，那么在单张的范围里，你只能使用4或者2来压。</p>
+<p><b>对子</b>：两张一起出，必须用大一级的对子去压，22对可以压除22以外的所有对子。如，有玩家出了33，则只有44和22可以压。</p>
+<p><b>顺子</b>：三张或三张以上相邻的牌，必须用大一级的顺子压，2不能出现在顺子里。如，有玩家出了345则只能用456来压。</p>
+<p><b>连对</b>：两个或者两个以上的对子。如：4455或445566,只能用大一级的连对。2不能出现在连对里。</p>
+<p><b>炸弹</b>：三张或者三张以上一样的牌。可以压单张，对子，顺子，连对。炸弹不需要一级压一级，优先比牌的张数，其次比牌面大小。</p>
+<p><b>王牌</b>：两张王为王牌，任何一张王牌都可以替代任何一张牌，但是一张王不能单独出牌，必须搭载至少一张其他牌一起出，如，3W，可以作为33,34W作为345,33W作为333，就大不就小。</p>
+<p><b>王炸</b>：两张王一起出。干瞪眼中最大的牌。</p>
+
+<hr/>
+<p><b>胜负判定</b>：不管桌面上还剩几张牌，第一个出完牌的玩家为赢家，其他玩家为输家。</p>
+<p><b>积分</b>：输家以手中剩余牌数决定积分，每张牌算一分，输家手中如果一张牌没出，则加倍扣积分。游戏中每打出一次炸弹，所有积分再加倍一次。加倍次数可以累加。所有输家扣的分数总和为赢家赚的积分。</p>
+					<br />
+				</div>
+			</div>
+			<!-- /content -->
+			<div
+			style="position: absolute; top: 0; right: 0; left: 0; bottom: 0; z-index: 0;">
+				<span
+				style="display: block; text-align: center; position: absolute; top: 0; right: 0; left: 0; height: 60px; line-height: 60px; z-index: 0; color: #ffcc00; text-shadow: 0px 0px 10px #000; font-size: 24px; font-weight: bold; background: url(js/images/pic_hall_bg.png) center top no-repeat;">游戏规则</span>
+				<a href="#" data-role="button" data-icon="arrow-l" data-iconpos="left" data-inline="true" onclick="javascript: gotopage_one();">返回</a>
+			</div>
+		</div>
+		<!-- /page help -->
+		<!-- Start of third page: #popup -->
+		<div data-role="page" id="popup" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; top: 50%; margin-top: -240px; ">
+			<div data-role="header" data-theme="e">
+				<h1>注册</h1>
+			</div>
+			<!-- /header -->
+			<div data-role="content" data-theme="d" style="height: 100px">
+				<p>
+					恭喜您！您已注册成功！
+				</p>
+				<div style="position: absolute; right: 20px">
+				<span class="button"> <a href="#" data-role="button" data-inline="true" data-theme="e" onclick="javascript:return_login();">返回登录</a> </span>
+				</div>
+			</div>
+			<!-- /content -->
+		</div>
+		<!-- /page popup -->
+	</body>
+</html>
